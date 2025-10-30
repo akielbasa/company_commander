@@ -1,0 +1,93 @@
+
+[
+  {
+    "title": "SSH to Production Server",
+    "command": "ssh admin@prod-server.company.com",
+    "interactive": true
+  },
+  {
+    "title": "SSH to Staging Server",
+    "command": "ssh admin@staging-server.company.com",
+    "interactive": true
+  },
+  {
+    "title": "SSH to Development Server",
+    "command": "ssh dev@dev-server.company.com",
+    "interactive": true
+  },
+  {
+    "title": "Interactive MySQL Console",
+    "command": "mysql -u root -p company_db",
+    "interactive": true
+  },
+  {
+    "title": "PostgreSQL Console",
+    "command": "psql -U postgres -h localhost",
+    "interactive": true
+  },
+  {
+    "title": "Deploy to Production",
+    "command": "./scripts/deploy-production.sh",
+    "interactive": true
+  },
+  {
+    "title": "Deploy to Staging",
+    "command": "./scripts/deploy-staging.sh",
+    "interactive": true
+  },
+  {
+    "title": "Interactive Log Monitoring",
+    "command": "tail -f /var/log/nginx/access.log",
+    "interactive": true
+  },
+  {
+    "title": "Edit Nginx Config",
+    "command": "sudo nano /etc/nginx/nginx.conf",
+    "interactive": true
+  },
+  {
+    "title": "Open Bash Shell",
+    "command": "bash",
+    "interactive": true
+  },
+  {
+    "title": "Check Server Status",
+    "command": "systemctl status nginx && systemctl status mysql",
+    "interactive": false
+  },
+  {
+    "title": "View Disk Usage",
+    "command": "df -h",
+    "interactive": false
+  },
+  {
+    "title": "Memory Usage",
+    "command": "free -h",
+    "interactive": false
+  },
+  {
+    "title": "Network Connections",
+    "command": "netstat -tulpn | head -20",
+    "interactive": false
+  },
+  {
+    "title": "Running Processes",
+    "command": "ps aux | head -15",
+    "interactive": false
+  },
+  {
+    "title": "System Uptime",
+    "command": "uptime && w",
+    "interactive": false
+  },
+  {
+    "title": "Test Internet Connection",
+    "command": "ping -c 4 google.com",
+    "interactive": false
+  },
+  {
+    "title": "Check Port 80",
+    "command": "nc -zv localhost 80",
+    "interactive": false
+  }
+]

@@ -1,4 +1,3 @@
-
 let commands = [];
 
 // Initialize Company Commander
@@ -59,11 +58,30 @@ async function loadCommands() {
         }
 
         if (!configFound) {
-            throw new Error(`Config file not found in any location. Last error: ${lastError}`);
+            throw new Error(`Config file not found in any location. Last error: ${lastError}. Searched paths: ${pathsToTry.join(', ')}`);
         }
 
     } catch (error) {
         console.log('Config file not found:', error.message);
+
+        // Get the actual paths that were searched
+        let appPath = 'unknown';
+        try {
+            const currentDir = await Neutralino.os.execCommand('pwd');
+            appPath = currentDir.stdOut.trim();
+        } catch (e) {
+            // Keep appPath as 'unknown'
+        }
+
+        // Recreate the same paths list that was actually used
+        const searchedPaths = [
+            './resources/config.json',
+            'resources/config.json',
+            'config.json',
+            './config.json',
+            `${appPath}/resources/config.json`,
+            `${appPath}/config.json`
+        ];
 
         // Show detailed instructions for creating config.json
         let instructions = `
@@ -71,26 +89,16 @@ CONFIG FILE NOT FOUND!
 
 Company Commander requires a config.json file to define your commands.
 
-LOCATIONS TRIED:
-• ./resources/config.json
-• resources/config.json  
-• config.json
-• ./config.json`;
+LOCATIONS SEARCHED:`;
 
-        // Add current directory info if available
-        try {
-            const currentDir = await Neutralino.os.execCommand('pwd');
-            const appPath = currentDir.stdOut.trim();
-            instructions += `
-• ${appPath}/resources/config.json
-• ${appPath}/config.json
-
-CURRENT WORKING DIRECTORY: ${appPath}`;
-        } catch (e) {
-            // Ignore if we can't get directory info
-        }
+        // Add each searched path to the instructions
+        searchedPaths.forEach(path => {
+            instructions += `\n• ${path}`;
+        });
 
         instructions += `
+
+CURRENT WORKING DIRECTORY: ${appPath}
 
 RECOMMENDED ACTION:
 Create a config.json file in one of the above locations with the following format:
@@ -137,6 +145,9 @@ FIELD DESCRIPTIONS:
 • title: Display name for the button
 • command: Shell command to execute
 • interactive: true = opens in terminal, false = runs in background
+
+QUICKEST FIX:
+Most likely location: ${appPath}/resources/config.json
 
 ERROR DETAILS: ${error.message}
 `;

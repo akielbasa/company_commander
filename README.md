@@ -31,7 +31,7 @@ a single click. Built with Neutralino.js for minimal resource usage and maximum 
 
 2. **Clone or download this repository:**
    ```bash
-   git clone https://github.com/yourusername/company-commander.git
+   git clone https://github.com/akielbasa/company-commander.git
    cd company-commander
    ```
 
